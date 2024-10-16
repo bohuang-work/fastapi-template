@@ -1,8 +1,9 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
-from src.endpoints import router as template_router
 from src.db import init_db
-from contextlib import asynccontextmanager
+from src.endpoints import router as template_router
 
 
 # App Config
@@ -11,14 +12,14 @@ async def lifespan(app: FastAPI):
     # Run init_db() during the startup of the app
     init_db()  # Initialize the database tables
     yield  # Continue running the app
-    # Optional: Place cleanup logic here (on shutdown if necessary)
+
 
 # App Config
 app = FastAPI(
     title="FastAPI Template",
     description="FastAPI template for building APIs",
     version="1.0.0",
-    lifespan=lifespan  # Register the lifespan handler
+    lifespan=lifespan,  # Register the lifespan handler
 )
 
 # Endpoints
